@@ -336,7 +336,7 @@ if not HISTORY_CSV.exists():
 @st.cache_data(show_spinner="Loading published historical NATIONAL ratings…")
 def load_public_history(path, modified):
     rows = pd.read_csv(path, compression="gzip", low_memory=False)
-    rows['race_date'] = pd.to_datetime(rows['race_date'], format='mixed', dayfirst=True, errors='coerce')
+    rows['race_date'] = pd.to_datetime(rows['race_date'], format='%Y-%m-%d', errors='coerce')
     rows['national'] = pd.to_numeric(rows['national'], errors='coerce')
     rows['selected_name'] = rows['selected_name'].astype(str).str.upper().str.replace(r'[^A-Z0-9]', '', regex=True)
     return rows.dropna(subset=['race_date'])
